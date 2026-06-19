@@ -14,7 +14,7 @@
     name1:     "Feroz Khan",
     ampersand: "&",
     name2:     "Bushra Begum",
-    date:      "Saturday, 12th July 2026",
+    date:      "Sunday, 12th July 2026",
     time:      "7:00 PM onwards",
     venue:     "Grand Mahal Banquet Hall\nHyderabad",
     closing:   "Your presence is our blessing",
@@ -31,17 +31,23 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --gold:      #E8B53C;
-    --gold-soft: #F4D680;
-    --deep-red:  #6E0E0A;
-    --maroon:    #420604;
-    --cream:     #FBEFC9;
-    --green:     #1F6B4A;
+    --gold:      #C9A24B;   /* muted gold */
+    --gold-soft: #E3C878;   /* soft gold */
+    --green:     #1F6B4A;   /* emerald accent */
+    --green-deep:#0E4730;   /* deep emerald */
+    --green-soft:#3E9E73;   /* light emerald */
+    --ivory:     #FBF8EF;   /* base paper */
+    --ivory-2:   #F2ECDC;   /* shaded paper */
+    --ink:       #14532D;   /* dark green text */
+    /* legacy aliases so existing rules still resolve */
+    --deep-red:  #1F6B4A;
+    --maroon:    #0E4730;
+    --cream:     #1d5638;   /* now used as dark green text on ivory */
   }
 
   html, body {
     width: 100%; height: 100%;
-    background: #1a0302;
+    background: #e8e2d2;
     overflow: hidden;
     font-family: 'Georgia', 'Times New Roman', serif;
   }
@@ -53,18 +59,18 @@
     height: min(177.78vw, 100vh);
     margin: 0 auto;
     background:
-      radial-gradient(ellipse at 50% 30%, #8a1410 0%, #5a0c08 45%, #3a0604 75%, #240302 100%);
+      radial-gradient(ellipse at 50% 25%, #ffffff 0%, var(--ivory) 45%, var(--ivory-2) 80%, #e9e1cd 100%);
     overflow: hidden;
-    box-shadow: 0 0 80px rgba(0,0,0,.7);
+    box-shadow: 0 0 80px rgba(0,0,0,.35);
   }
 
-  /* ornamental border */
+  /* ornamental gold inner frame */
   #stage::before {
     content: "";
     position: absolute; inset: 14px;
-    border: 2px solid var(--gold);
+    border: 1.5px solid var(--gold);
     border-radius: 6px;
-    box-shadow: inset 0 0 0 4px rgba(232,181,60,.18), inset 0 0 30px rgba(0,0,0,.4);
+    box-shadow: inset 0 0 0 4px rgba(31,107,74,.10), inset 0 0 0 5.5px rgba(201,162,75,.5);
     pointer-events: none;
     z-index: 40;
   }
@@ -73,9 +79,38 @@
   .haze {
     position: absolute; inset: 0;
     background:
-      radial-gradient(circle at 20% 80%, rgba(232,181,60,.10), transparent 40%),
-      radial-gradient(circle at 80% 85%, rgba(232,181,60,.08), transparent 40%);
+      radial-gradient(circle at 18% 82%, rgba(31,107,74,.06), transparent 42%),
+      radial-gradient(circle at 82% 84%, rgba(201,162,75,.07), transparent 42%);
     z-index: 1;
+  }
+
+  /* ---------- EMBROIDERY FLORAL BORDER ---------- */
+  #embroidery {
+    position: absolute; inset: 0;
+    z-index: 38; pointer-events: none;
+  }
+  #embroidery svg { width: 100%; height: 100%; display: block; }
+  .emb-vine   { fill: none; stroke: var(--green); stroke-width: 1.6; opacity: .9; }
+  .emb-vine2  { fill: none; stroke: var(--green-soft); stroke-width: 1; opacity: .7; }
+  .emb-leaf   { fill: var(--green); opacity: .85; }
+  .emb-leaf2  { fill: var(--green-soft); opacity: .7; }
+  .emb-flower { fill: var(--gold-soft); stroke: var(--gold); stroke-width: .8; }
+  .emb-flower-core { fill: var(--green); }
+  .emb-bud    { fill: var(--gold); opacity: .9; }
+
+  /* ---------- FALLING PETALS (gentle wedding ambiance) ---------- */
+  #petals { position: absolute; inset: 0; z-index: 7; pointer-events: none; overflow: hidden; }
+  .petal {
+    position: absolute; top: -24px;
+    font-size: 16px; opacity: 0;
+    animation: fall linear infinite;
+    will-change: transform;
+  }
+  @keyframes fall {
+    0%   { opacity: 0; transform: translateY(-20px) translateX(0) rotate(0deg); }
+    12%  { opacity: .5; }
+    88%  { opacity: .4; }
+    100% { opacity: 0; transform: translateY(105vh) translateX(40px) rotate(320deg); }
   }
 
   /* ---------- LANTERNS ---------- */
@@ -132,7 +167,7 @@
   }
   .dl {
     fill: none;
-    stroke: var(--gold-soft);
+    stroke: var(--green);
     stroke-width: 2.4;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -140,7 +175,7 @@
     stroke-dasharray: 600;
     stroke-dashoffset: 600;
     animation: draw 2.6s ease forwards;
-    filter: drop-shadow(0 0 4px rgba(232,181,60,.35));
+    filter: drop-shadow(0 1px 2px rgba(14,71,48,.2));
   }
   .dl.ground { animation-delay: 0s; }
   #groom .dl { animation-delay: .2s; }
@@ -165,8 +200,8 @@
   .fl-beard    { fill: #4a2c18; }            /* warm brown beard */
   .fl-skin     { fill: #e8b98c; }            /* warm skin */
   /* bride palette */
-  .fl-gown     { fill: #9c1c3b; }            /* maroon-rose gown */
-  .fl-veil     { fill: #d98aa6; opacity: 0; }/* soft rose veil (semi) */
+  .fl-gown     { fill: #efe6cf; }            /* ivory gown */
+  .fl-veil     { fill: #cde3d4; opacity: 0; }/* soft green-tinted veil */
 
   .groom-fills .fl { animation-delay: 2.4s; }
   .bride-fills .fl { animation-delay: 3.0s; }
@@ -213,23 +248,24 @@
 
   #doodleCaption {
     font-family: 'Great Vibes', 'Cormorant Garamond', cursive;
-    color: var(--gold-soft);
-    font-size: clamp(26px, 8vw, 40px);
+    color: var(--green);
+    font-size: clamp(28px, 8.5vw, 42px);
     font-weight: 400;
     letter-spacing: .5px;
     line-height: 1.2;
     opacity: 0;
     animation: fadeIn 1s ease forwards 4.8s;
-    text-shadow: 0 1px 10px rgba(232,181,60,.35);
+    text-shadow: 0 1px 6px rgba(31,107,74,.2);
   }
   #toEnvelope {
     font-family: inherit;
-    background: linear-gradient(160deg, var(--gold-soft), var(--gold));
-    color: var(--maroon);
-    border: none; border-radius: 24px;
-    padding: 11px 24px; font-size: clamp(13px, 3.6vw, 16px);
+    background: linear-gradient(160deg, var(--green-soft), var(--green));
+    color: var(--ivory);
+    border: 1.5px solid var(--gold);
+    border-radius: 24px;
+    padding: 11px 26px; font-size: clamp(13px, 3.6vw, 16px);
     font-weight: bold; letter-spacing: .5px; cursor: pointer;
-    box-shadow: 0 6px 18px rgba(0,0,0,.4), 0 0 20px rgba(232,181,60,.4);
+    box-shadow: 0 6px 16px rgba(14,71,48,.3), 0 0 0 3px rgba(201,162,75,.18);
     opacity: 0;
     animation: fadeIn .8s ease forwards 5.4s;
     transition: transform .2s ease;
@@ -311,7 +347,7 @@
     position: absolute; left: 50%; top: 50%;
     transform: translate(-50%,-50%);
     width: 88px; height: 88px; border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #b51c16, var(--deep-red) 70%);
+    background: radial-gradient(circle at 35% 30%, #2a8a5f, var(--green-deep) 70%);
     box-shadow: 0 4px 12px rgba(0,0,0,.55), inset 0 0 14px rgba(0,0,0,.45);
     display: flex; align-items: center; justify-content: center;
     color: var(--gold-soft); font-size: 40px;
@@ -320,7 +356,7 @@
   }
   .env-seal::before { /* scalloped wax edge */
     content: ""; position: absolute; inset: -4px; border-radius: 50%;
-    background: repeating-conic-gradient(var(--deep-red) 0deg 12deg, #8a120e 12deg 24deg);
+    background: repeating-conic-gradient(var(--green) 0deg 12deg, var(--green-deep) 12deg 24deg);
     z-index: -1; opacity: .8;
   }
   .env-hint {
@@ -446,6 +482,70 @@
 <div id="stage">
   <div class="haze"></div>
 
+  <!-- embroidery floral border -->
+  <div id="embroidery" aria-hidden="true">
+    <svg viewBox="0 0 360 640" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- a single leaf -->
+        <g id="leaf">
+          <path class="emb-leaf" d="M0 0 Q6 -7 12 0 Q6 7 0 0 Z"/>
+          <path class="emb-vine2" d="M1 0 H11"/>
+        </g>
+        <!-- a small 5-petal flower -->
+        <g id="flower">
+          <g>
+            <ellipse class="emb-flower" cx="0" cy="-6" rx="3.2" ry="5"/>
+            <ellipse class="emb-flower" cx="0" cy="-6" rx="3.2" ry="5" transform="rotate(72)"/>
+            <ellipse class="emb-flower" cx="0" cy="-6" rx="3.2" ry="5" transform="rotate(144)"/>
+            <ellipse class="emb-flower" cx="0" cy="-6" rx="3.2" ry="5" transform="rotate(216)"/>
+            <ellipse class="emb-flower" cx="0" cy="-6" rx="3.2" ry="5" transform="rotate(288)"/>
+          </g>
+          <circle class="emb-flower-core" cx="0" cy="0" r="2.6"/>
+        </g>
+        <!-- corner cluster: curling vine + flowers + leaves -->
+        <g id="corner">
+          <path class="emb-vine" d="M6 70 C6 36 36 6 70 6"/>
+          <path class="emb-vine2" d="M14 70 C14 44 44 14 70 14"/>
+          <use href="#flower" x="10" y="10"/>
+          <use href="#flower" x="40" y="9" transform="scale(.85)"/>
+          <use href="#flower" x="9" y="40" transform="scale(.85)"/>
+          <use href="#leaf" x="30" y="16" transform="rotate(35 30 16)"/>
+          <use href="#leaf" x="16" y="30" transform="rotate(70 16 30)"/>
+          <use href="#leaf" x="52" y="14" transform="rotate(20 52 14) scale(.9)"/>
+          <use href="#leaf" x="14" y="52" transform="rotate(100 14 52) scale(.9)"/>
+          <circle class="emb-bud" cx="64" cy="22" r="2.2"/>
+          <circle class="emb-bud" cx="22" cy="64" r="2.2"/>
+        </g>
+      </defs>
+
+      <!-- four corners (reliable mirroring via translate+scale groups) -->
+      <g transform="translate(0,0)"><use href="#corner"/></g>
+      <g transform="translate(360,0) scale(-1,1)"><use href="#corner"/></g>
+      <g transform="translate(0,640) scale(1,-1)"><use href="#corner"/></g>
+      <g transform="translate(360,640) scale(-1,-1)"><use href="#corner"/></g>
+
+      <!-- top edge vine -->
+      <path class="emb-vine" d="M80 18 Q140 8 180 18 Q220 28 280 18"/>
+      <g transform="translate(150,14) scale(.75) rotate(10)"><use href="#leaf"/></g>
+      <g transform="translate(210,20) scale(.75) rotate(-12)"><use href="#leaf"/></g>
+
+      <!-- bottom edge vine -->
+      <path class="emb-vine" d="M80 622 Q140 632 180 622 Q220 612 280 622"/>
+      <g transform="translate(155,624) scale(.75) rotate(190)"><use href="#leaf"/></g>
+      <g transform="translate(215,618) scale(.75) rotate(168)"><use href="#leaf"/></g>
+
+      <!-- left edge vine (slim, no inward flowers) -->
+      <path class="emb-vine2" d="M10 110 Q4 300 10 530"/>
+      <g transform="translate(10,200) scale(.7) rotate(85)"><use href="#leaf"/></g>
+      <g transform="translate(10,420) scale(.7) rotate(95)"><use href="#leaf"/></g>
+
+      <!-- right edge vine -->
+      <path class="emb-vine2" d="M350 110 Q356 300 350 530"/>
+      <g transform="translate(350,200) scale(.7) rotate(-85)"><use href="#leaf"/></g>
+      <g transform="translate(350,420) scale(.7) rotate(-95)"><use href="#leaf"/></g>
+    </svg>
+  </div>
+
   <!-- lanterns -->
   <div class="lantern left">
     <div class="cord"></div>
@@ -457,6 +557,9 @@
   </div>
 
   <canvas id="fx"></canvas>
+
+  <!-- gentle falling petals -->
+  <div id="petals" aria-hidden="true"></div>
 
   <!-- doodle opening scene -->
   <div id="doodle">
@@ -592,6 +695,27 @@
 <script>
   // inject text
   const $ = id => document.getElementById(id);
+
+  // gentle falling petals/leaves
+  (function makePetals(){
+    const layer = document.getElementById("petals");
+    if (!layer) return;
+    const glyphs = ["❀","✿","❁","🍃","✾"];
+    const N = 9;
+    for (let i=0;i<N;i++){
+      const s = document.createElement("span");
+      s.className = "petal";
+      s.textContent = glyphs[i % glyphs.length];
+      const dur = 9 + Math.random()*8;
+      s.style.left = (Math.random()*100) + "%";
+      s.style.fontSize = (12 + Math.random()*10) + "px";
+      s.style.animationDuration = dur + "s";
+      s.style.animationDelay = (-Math.random()*dur) + "s";
+      // green leaves vs gold flowers
+      s.style.color = (i % 2 === 0) ? "var(--green-soft)" : "var(--gold)";
+      layer.appendChild(s);
+    }
+  })();
   $("hint").textContent       = INVITE.tapHint;
   $("c-bismillah").textContent= INVITE.bismillahAr;
   $("c-eyebrow").textContent  = INVITE.eyebrow;
@@ -618,7 +742,7 @@
 
   /* ---------- firecracker particle system ---------- */
   let particles = [];
-  const GOLD = ["#FFD86B","#F4D680","#E8B53C","#FF8A3C","#FFFFFF","#FF5B5B","#6CE0A8"];
+  const GOLD = ["#E3C878","#C9A24B","#FFFFFF","#3E9E73","#1F6B4A","#F4E3A8","#6CE0A8"];
 
   function burst(x, y) {
     const n = 46 + Math.floor(Math.random()*24);
